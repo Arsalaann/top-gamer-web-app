@@ -1,0 +1,277 @@
+.navigationContainer {
+    display: grid;
+    position: relative;
+    width: 25%;
+    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-weight: 600;
+    z-index: 10;
+}
+
+
+.sidebarContainer {
+    display: grid;
+    font-size: 1vw;
+    overflow: auto;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.566);
+}
+
+.sidebarContainer::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    padding: 3px;
+    background: linear-gradient(90deg, lime, aqua, magenta, purple, yellow, pink);
+    background-size: 120% 120%;
+    animation: borderMove 3s ease infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.navigation {
+    overflow: auto;
+    padding: 10px 0;
+}
+
+.navigation li {
+    position: relative;
+    border-left: 2px solid magenta;
+    border-bottom: 2px solid magenta;
+    border-top: 2px solid aqua;
+    border-right: 2px solid rgb(0, 238, 255);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 7%;
+    list-style-type: none;
+    margin: 8px 12px;
+    background: rgba(102, 102, 102, 0.315);
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        letter-spacing 0.3s ease,
+        border 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+.navigation li:hover:not(.activeLink) {
+    background-color: rgba(0, 0, 0, 0.27);
+    text-shadow: 0 0 6px white;
+}
+
+.navigation li:active:not(.activeLink) {
+    transform: scale(0.93) !important;
+    color: rgb(0, 247, 255);
+    border: 2px solid rgb(0, 242, 255);
+}
+
+
+
+
+.navigation li.activeLink {
+    background: rgba(0, 0, 0, 0.293);
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 900;
+    text-shadow: 0 0 5px white;
+    letter-spacing: 2px;
+    background: linear-gradient(rgba(0, 255, 255, 0.58),rgba(255, 0, 255, 0.656));
+}
+
+
+/* 
+.navigation li.activeLink::after {
+  content: "";
+  position: absolute;
+  inset:0;
+  padding: 3px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg, aqua, magenta, aqua, magenta, aqua, magenta, aqua, magenta
+  );
+  background-size: 300% 300%;
+  animation: borderMove 3s ease infinite;
+
+  
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  pointer-events: none;
+} */
+
+
+.navigation span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navLinksLogo {
+    font-size: 1.5rem;
+}
+
+.topGamerContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 4%;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 2%;
+    padding-left: 5%;
+    color: #adadad;
+    background: linear-gradient(rgba(255, 255, 255, 0.193), rgba(83, 83, 83, 0.03));
+}
+
+
+.navClose {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.navClose:hover {
+    color: rgb(198, 198, 198);
+}
+
+.navOpenContainer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5%;
+    top: 13px;
+    left: 17px;
+    font-size: 2.2em;
+    height: 50px;
+    color: rgb(255, 255, 255);
+
+    border-radius: 15%;
+    background-color: rgba(0, 0, 0, 0.396);
+    cursor: pointer;
+
+    transition: background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.1s ease;
+}
+
+.navOpenContainer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    /* border thickness */
+    border-radius: 15%;
+    background: linear-gradient(90deg,
+            lime, aqua, magenta, purple, yellow, pink);
+    background-size: 300% 300%;
+    animation: none;
+
+    /* mask center to show only border */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    /* Standard mask for broader compatibility */
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.navOpenContainer:hover::after {
+    animation: navOpenerBorderRun 2s ease-in-out infinite;
+}
+
+
+
+
+.navOpenContainer:hover {
+    background-color: rgba(0, 0, 0, 0.227);
+    color: white;
+    box-shadow: 4px 7px 7px rgba(53, 53, 53, 0.474);
+    transform: scale(1.1);
+}
+
+.navOpenContainer:active {
+    background-color: rgba(255, 255, 255, 0.45);
+    border-color: white;
+    color: white;
+    box-shadow: 0 0 18px 6px rgba(255, 255, 255, 1);
+    transform: scale(0.95);
+}
+
+@keyframes borderMove {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    25% {
+        background-position: 100% 100%;
+    }
+
+    50% {
+        background-position: 50% 50%;
+    }
+
+    75% {
+        background-position: 25% 25%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+
+/* Gradient animation for border */
+@keyframes navOpenerBorderRun {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@media (max-width: 820px) {
+
+    .navOpen,
+    .navOpenContainer,
+    .navigationContainer {
+        display: none;
+    }
+
+}

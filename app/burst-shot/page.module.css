@@ -1,0 +1,14 @@
+.gameBody{
+    width: 100vw;
+    height: 100vh;
+    background:rgba(43, 43, 43, 0);
+    overflow: hidden;
+}
+
+.gamePlayingBgContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+}

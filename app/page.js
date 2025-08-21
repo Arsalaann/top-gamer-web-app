@@ -1,95 +1,287 @@
-import Image from "next/image";
+import Navigation from "./components/Navigation";
+import CurrentSelection from "./components/CurrentSelection";
+import RightAside from "./components/RightAside";
 import styles from "./page.module.css";
+
+function getDateTime() {
+    const now = new Date();
+
+    const date = now.toLocaleDateString(); // e.g. "8/17/2025"
+    const time = now.toLocaleTimeString(); // e.g. "4:25:13 PM"
+
+    return { date, time };
+}
+  
+const navLinks = [
+  {
+    name: 'Home',
+  }, 
+  {
+    name: 'Catch Master',
+    desc: '“Grab Apples, Dodge stones!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Burst Shot',
+    desc: '“Analyze, Aim and Shoot!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Shapes Fit',
+    desc: '“Shape match, Time clash”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Be Careful',
+    desc: '“Think before you click:)”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    }, //in seconds
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged in increasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Catch Master',
+    desc: '“Grab Apples, Dodge stones!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Burst Shot',
+    desc: '“Analyze, Aim and Shoot!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Shapes Fit',
+    desc: '“Shape match, Time clash”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Be Careful',
+    desc: '“Think before you click:)”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    }, //in seconds
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged in increasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Catch Master',
+    desc: '“Grab Apples, Dodge stones!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Burst Shot',
+    desc: '“Analyze, Aim and Shoot!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Shapes Fit',
+    desc: '“Shape match, Time clash”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Be Careful',
+    desc: '“Think before you click:)”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    }, //in seconds
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged in increasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Catch Master',
+    desc: '“Grab Apples, Dodge stones!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Burst Shot',
+    desc: '“Analyze, Aim and Shoot!”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Shapes Fit',
+    desc: '“Shape match, Time clash”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    },
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged decreasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+  {
+    name: 'Be Careful',
+    desc: '“Think before you click:)”',
+    highScore: {
+      score: 99999,
+      playerName: 'arsalan',
+      country: 'India'
+    }, //in seconds
+    yourHistory: [
+      [getDateTime().date, getDateTime().time, 1111],//arranged in increasing order of score
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111],
+      [getDateTime().date, getDateTime().time, 1111]
+    ]
+  },
+
+];
+
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    <div className={styles.homeContainer}>
+      <Navigation navLinks={navLinks}/>
+      <CurrentSelection navLinks={navLinks}/>
+      <RightAside navLinks={navLinks}/>
+    </div >
+  )
 }

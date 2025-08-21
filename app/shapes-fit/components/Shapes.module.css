@@ -1,0 +1,299 @@
+.gameTop {
+    display: grid;
+    width: 100%;
+}
+
+.topFirst {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    /* width: 32%;
+    border-radius:10% 10% 0 0; */
+    border: 5px solid rgb(255, 255, 255);
+    border-bottom: none;
+
+}
+
+
+
+
+
+.gameMiddle {
+    display: grid;
+    grid-template-columns: 35% 30% 35%;
+    width: 100%;
+}
+
+.middleFirst,
+.middleSecond,
+.middleThird {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.middleFirst {
+    border: 5px solid rgb(255, 255, 255);
+    border-right: none;
+    border-radius: 10% 0 0 10%;
+}
+
+.middleThird {
+    border: 5px solid rgb(255, 255, 255);
+    border-left: none;
+    border-radius: 0 10% 10% 0;
+}
+
+
+
+
+
+.gameBottom {
+    display: grid;
+    width: 100%;
+}
+
+.bottomFirst {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* border-radius: 0 0 10% 10%; */
+    margin: 0 auto;
+    border: 5px solid rgb(255, 255, 255);
+    border-top: none;
+}
+
+
+
+
+
+
+
+
+
+.diamond {
+    width: 80px;
+    height: 80px;
+    transform: rotate(45deg);
+    margin: 50px auto;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.square {
+    width: 95px;
+    height: 95px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.rectangle {
+    width: 80px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+
+
+
+
+
+
+
+
+.effect1 {
+    border: 5px solid rgb(51, 255, 36);
+    box-shadow:
+        0 0 2px 1px rgba(22, 255, 26, 0.5),
+        0 0 6px 3px rgba(22, 255, 26, 0.3),
+        0 0 8px 4px rgba(45, 255, 22, 0.2);
+    background-color: rgba(0, 0, 0, 0.501);
+    cursor: pointer;
+}
+
+.effect2 {
+    border: 5px solid rgb(255, 28, 232);
+    box-shadow:
+        0 0 2px 1px rgba(255, 17, 239, 0.5),
+        0 0 6px 3px rgba(255, 20, 232, 0.3),
+        0 0 8px 4px rgba(255, 17, 235, 0.2);
+    background-color: rgba(0, 0, 0, 0.501);
+    cursor: pointer;
+}
+
+.effect3 {
+    border: 5px solid rgb(255, 255, 29);
+    box-shadow:
+        0 0 2px 1px rgba(255, 235, 14, 0.5),
+        0 0 6px 3px rgba(255, 239, 17, 0.3),
+        0 0 8px 4px rgba(255, 239, 16, 0.2);
+    background-color: rgba(0, 0, 0, 0.501);
+    cursor: pointer;
+}
+
+.effect4 {
+    border: 5px solid rgb(25, 255, 243);
+    box-shadow:
+        0 0 2px 1px rgba(14, 255, 231, 0.5),
+        0 0 6px 3px rgba(14, 255, 227, 0.3),
+        0 0 8px 4px rgba(17, 255, 231, 0.2);
+    background-color: rgba(0, 0, 0, 0.501);
+    cursor: pointer;
+}
+
+.effect1:hover {
+    background-color: rgba(51, 255, 36, 0.8);
+    box-shadow:
+        0 0 3px 2px white,
+        0 0 6px 3px rgba(22, 255, 26, 0.5),
+        0 0 12px 6px rgba(22, 255, 26, 0.3),
+        0 0 16px 8px rgba(45, 255, 22, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.effect2:hover {
+    background-color: rgba(255, 28, 232, 0.8);
+    box-shadow:
+        0 0 3px 2px white,
+        0 0 6px 3px rgba(255, 17, 239, 0.5),
+        0 0 12px 6px rgba(255, 20, 232, 0.3),
+        0 0 16px 8px rgba(255, 17, 235, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.effect3:hover {
+    background-color: rgba(255, 255, 29, 0.8);
+    box-shadow:
+        0 0 3px 2px white,
+        0 0 6px 3px rgba(255, 235, 14, 0.5),
+        0 0 12px 6px rgba(255, 239, 17, 0.3),
+        0 0 16px 8px rgba(255, 239, 16, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.effect4:hover {
+    background-color: rgba(25, 255, 243, 0.8);
+    box-shadow:
+        0 0 3px 2px white,
+        0 0 6px 3px rgba(14, 255, 231, 0.5),
+        0 0 12px 6px rgba(14, 255, 227, 0.3),
+        0 0 16px 8px rgba(17, 255, 231, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.effect1:active {
+    background-color: rgba(51, 255, 36, 0.5);
+    box-shadow:
+        0 0 1.5px 1px white,
+        0 0 3px 1.5px rgba(22, 255, 26, 0.3),
+        0 0 6px 3px rgba(22, 255, 26, 0.2);
+    transform: scale(0.97);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.effect2:active {
+    background-color: rgba(255, 28, 232, 0.5);
+    box-shadow:
+        0 0 1.5px 1px white,
+        0 0 3px 1.5px rgba(255, 17, 239, 0.3),
+        0 0 6px 3px rgba(255, 20, 232, 0.2);
+    transform: scale(0.97);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.effect3:active {
+    background-color: rgba(255, 255, 29, 0.5);
+    box-shadow:
+        0 0 1.5px 1px white,
+        0 0 3px 1.5px rgba(255, 235, 14, 0.3),
+        0 0 6px 3px rgba(255, 239, 17, 0.2);
+    transform: scale(0.97);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.effect4:active {
+    background-color: rgba(25, 255, 243, 0.5);
+    box-shadow:
+        0 0 1.5px 1px white,
+        0 0 3px 1.5px rgba(14, 255, 231, 0.3),
+        0 0 6px 3px rgba(14, 255, 227, 0.2);
+    transform: scale(0.97);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.diamond:active {
+    transform: rotate(45deg);
+}
+
+
+
+
+
+
+
+.squareMiddle {
+    width: 85px;
+    height: 85px;
+    background: white;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 999;
+}
+
+.rectangleMiddle {
+    width: 70px;
+    height: 100px;
+    background: white;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 999;
+}
+
+.diamondMiddle {
+    width: 70px;
+    height: 70px;
+    background: white;
+    transform: rotate(45deg);
+    border-radius: 5px;
+    position: fixed;
+    z-index: 999;
+}
+
+.circleMiddle {
+    width: 90px;
+    height: 90px;
+    background: white;
+    border-radius: 50%;
+    position: fixed;
+    z-index: 999;
+}
+
+.middleEffect1 {
+    background: rgb(51, 255, 36);
+}
+
+.middleEffect2 {
+    background: rgb(255, 28, 232);
+}
+
+.middleEffect3 {
+    background: rgb(255, 255, 29);
+}
+
+.middleEffect4 {
+    background: rgb(25, 255, 243);
+}

@@ -1,0 +1,48 @@
+.top-bar-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(75, 71, 61);
+    font-size: 1.7rem;
+    margin-top: 0;
+    padding:0 4%;
+}
+
+.score{
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px
+}
+.score:nth-child(1){
+    font-size: 1.5rem;
+}
+
+
+
+.exit {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 100%;
+    color: rgb(255, 255, 255);
+}
+
+.exit:active {
+    font-size: 20px;
+    color: rgb(166, 166, 166);
+
+}
+
+.exit:hover{
+    color: rgb(76, 76, 76);
+}
+
+@media (max-width:820px){
+    .top-bar-container{
+        margin-top: 2%;
+    }
+}
+    

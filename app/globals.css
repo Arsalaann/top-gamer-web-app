@@ -5,7 +5,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: rgb(10, 10, 10);
     --foreground: #ededed;
   }
 }
@@ -24,11 +24,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Remove default outline on focus */
+button, input, a {
+  outline: none;
+}
+
+/* Remove tap highlight on mobile (Chrome, Safari) */
+button, input, a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Optional: remove active background change on iOS */
+button:active {
+  background-color: inherit;
+}
+
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
+
+
 
 a {
   color: inherit;

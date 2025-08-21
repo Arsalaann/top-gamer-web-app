@@ -1,0 +1,42 @@
+.top-bar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: rgb(75, 71, 61);
+    font-size: 1.7rem;
+    background-color: #9b77ff;
+}
+
+.high-score-container {
+    display: flex;
+    gap: 8px;
+    color:rgb(255, 255, 0);
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+}
+
+.high-score{
+    color:rgb(0, 0, 210);
+}
+
+.exit {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-right: 3%;
+    color: rgb(0, 0, 210);
+}
+
+.exit:active {
+    font-size: 20px;
+    color: rgb(57, 57, 57);
+
+}
+
+.exit:hover{
+    color: rgb(53, 53, 255);
+}
