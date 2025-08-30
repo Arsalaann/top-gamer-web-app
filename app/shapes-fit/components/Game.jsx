@@ -4,6 +4,9 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import Timer from "./Timer";
 import TopBar from './TopBar';
+import { useSelector, useDispatch } from 'react-redux';
+import { setGames } from '@/app/redux/slices/gamesSlice';
+import { updateUserData } from '@/app/redux/slices/userDataSlice';
 
 export default function Game({ gameOver, gameOverUpdate, scoreUpdate, highScoreUpdate }) {
 
@@ -36,6 +39,12 @@ export default function Game({ gameOver, gameOverUpdate, scoreUpdate, highScoreU
   const [score, setScore] = useState(0);
   const [isWrong, setIsWrong] = useState(false);
   const [scoreUpdateText, scoreUpdateTextSet] = useState("");
+  const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
+  const userData = useSelector((state) => state.userData.userData);
+  const games = useSelector((state) => state.games.games);
+  const ind = useSelector((state) => state.currentNavigationIndex);
+
+  const dispatch = useDispatch();
 
   const [shapesOrder, setShapesOrder] = useState([
     "diamond",
@@ -69,10 +78,76 @@ export default function Game({ gameOver, gameOverUpdate, scoreUpdate, highScoreU
     gameOverRef.current = gameOver;
   }, [gameOver]);
 
+  const updateUserDataOnServer = async (games) => {
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch('/api/user-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ games })
+      });
+
+      if (!response.ok) {
+        console.error('Failed to update user data on server');
+      }
+    } catch (error) {
+      console.error('Error updating user data on server:', error);
+    }
+  }
+
+  const updateHighScoreOnServer = async () => {
+    try {
+      const response = await fetch('/api/games', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+        },
+        body: JSON.stringify({
+          gameId: ind,
+          highScore: score,
+          playerName: userData.username,
+          playerCountry: userData.country
+        })
+      });
+      if (!response.ok) {
+        console.error('Failed to update high score on server');
+      }
+    } catch (error) {
+      console.error('Error updating high score on server:', error);
+    }
+  };
+
   const gameOverHandler = () => {
     gameOverUpdate(true);
     scoreUpdate(score);
-    highScoreUpdate((prev) => Math.max(score, prev));
+    if (isLoggedIn) {
+      if (score > games[ind].highScore) {
+        const updatedGames = games.map((game) => {
+          if (game._id === ind) {
+            return { ...game, highScore: score, playerName: userData.userData.username, playerCountry: userData.userData.country };
+          }
+          return game;
+        });
+        dispatch(setGames(updatedGames));
+        updateHighScoreOnServer();
+      }
+    }
+    if (score > userData.games[ind - 1][4][0]) {
+      const updatedGames = userData.games.map(row => row.map(item => [...item]));
+      let x = 4;
+      while (x > 0 && score > updatedGames[ind - 1][x][0])
+        updatedGames[ind - 1][x] = updatedGames[ind - 1][--x]
+      if (score < updatedGames[ind - 1][x][0]) x++;
+      updatedGames[ind - 1][x] = [score, new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
+      if (isLoggedIn)
+        updateUserDataOnServer(updatedGames);
+      const newUserData = { ...userData, games: updatedGames };
+      dispatch(updateUserData(newUserData));
+    }
   };
 
   const renderMiddleShape = (shapeName, effectName) => (

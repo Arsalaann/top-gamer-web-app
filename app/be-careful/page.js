@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import Game from './components/Game';
 import Home from './components/Home';
 
+
 export default function BeCareful() {
-    const [allowed,setAllowed]=useState(false);
-    const router=useRouter();
+    const [allowed, setAllowed] = useState(false);
+    const router = useRouter();
     useEffect(() => {
 
         const canPlay = sessionStorage.getItem('canPlay');
@@ -29,7 +30,6 @@ export default function BeCareful() {
         };
     }, []);
     const [gameOver, gameOverUpdate] = useState(true);
-    const [highScore, highScoreUpdate] = useState(0);
     const [totalClicks, totalClicksUpdate] = useState(0);
     const [score, scoreUpdate] = useState(0);
 
@@ -39,8 +39,6 @@ export default function BeCareful() {
                 <Game
                     gameOverUpdate={gameOverUpdate}
                     gameOver={gameOver}
-                    highScoreUpdate={highScoreUpdate}
-                    highScore={highScore}
                     scoreUpdate={scoreUpdate}
                     totalClicksUpdate={totalClicksUpdate}
                 /> :
@@ -48,12 +46,11 @@ export default function BeCareful() {
                     gameOverUpdate={gameOverUpdate}
                     totalClicks={totalClicks}
                     totalClicksUpdate={totalClicksUpdate}
-                    highScore={highScore}
                     score={score}
                 />
             }
         </div>
 
 
-    ):null;
+    ) : null;
 }

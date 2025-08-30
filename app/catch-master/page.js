@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { game, startSpawner, startTimer } from './utils';
 import { handleFullscreenChange, handleKeyDown, handleKeyUp } from './events';
+import { useSelector,useDispatch } from 'react-redux';
+import { updateUserData } from '../redux/slices/userDataSlice';
+import { setGames } from '../redux/slices/gamesSlice';
 import Home from './Home';
 
 const getPointerPos = (evt, canvas) => {
@@ -22,11 +25,18 @@ const getPointerPos = (evt, canvas) => {
 };
 
 export default function CatchMaster() {
+    const ind = useSelector((state) => state.currentNavigationIndex);
+    const highScore= useSelector((state) => state.userData.userData.games[ind-1][0][0]);
+    const userData=useSelector(state=>state.userData.userData);
+    const isLoggedIn=useSelector(state=>state.userData.isLoggedIn);
+    const games=useSelector(state=>state.games.games);
+
+    const dispatch=useDispatch();
+
     const [allowed, setAllowed] = useState(false);
     const router = useRouter();
     const [gameOver, gameOverUpdate] = useState(true);
     const canvasRef = useRef(null);
-    const highScoreRef = useRef(0);
     const scoreRef = useRef(0);
     const keys = useRef({
         left: false,
@@ -142,7 +152,7 @@ export default function CatchMaster() {
                 console.log('start-game')
                 game(ctx, keys.current, gameBgImage,
                     canvasWidth, canvasHeight, basketImage, appleImage, stoneImage, goldenAppleImage,
-                    comboImage, gameOverRef, highScoreRef, scoreRef, basketXref, basketY, basketHeight, basketSpeed, basketWidth
+                    comboImage, gameOverRef, highScore, scoreRef, basketXref, basketY, basketHeight, basketSpeed, basketWidth
                 );
                 if (!gameOverRef.current)
                     requestAnimationFrame(gameLoop);
@@ -151,7 +161,7 @@ export default function CatchMaster() {
 
             const startGame = () => {
                 startSpawner(gameIntervals);
-                startTimer(gameIntervals, gameOverRef, gameOverUpdate);
+                startTimer(gameIntervals, gameOverRef, gameOverUpdate,ind,dispatch,userData,updateUserData,scoreRef,isLoggedIn,games,setGames);
                 requestAnimationFrame(gameLoop);
             }
 
@@ -226,7 +236,6 @@ export default function CatchMaster() {
                 <Home
                     gameOverRef={gameOverRef}
                     gameOverUpdate={gameOverUpdate}
-                    highScore={highScoreRef.current}
                     score={scoreRef}
                 /> :
                 <canvas

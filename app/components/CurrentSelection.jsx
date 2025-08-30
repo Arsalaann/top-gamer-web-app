@@ -14,8 +14,8 @@ import { update as navDirection } from '../redux/slices/slideDirectionSlice';
 
 const MotionImage = motion.create(Image);
 
-export default function CurrentSelection({ navLinks }) {
-
+export default function CurrentSelection() {
+    const navLinks = useSelector((state) => state.games.games);
     const ind = useSelector((state) => state.currentNavigationIndex);
     const navCurr = useSelector((state) => state.slideDirection);
     const dispatch = useDispatch();
@@ -47,13 +47,13 @@ export default function CurrentSelection({ navLinks }) {
                     transition={{ duration: 0.3 }}
                 />
             </AnimatePresence>
-            <motion.div
+            {ind!==0 && <motion.div
                 key={ind}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}
                 className={styles.backgroundOverlay}>
-            </motion.div>
+            </motion.div>}
             {ind === 0 && <HomeDesc />}
             <div className={styles.navGamesContainer}>
                 <MdArrowBackIosNew

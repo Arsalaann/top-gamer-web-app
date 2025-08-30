@@ -3,8 +3,20 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { BsFillStopwatchFill } from "react-icons/bs";
 import TopBar from './TopBar';
 import style from '../page.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserData } from '@/app/redux/slices/userDataSlice';
+import { setGames } from '@/app/redux/slices/gamesSlice';
 
-export default function Game({ gameOverUpdate, totalClicksUpdate, highScoreUpdate, scoreUpdate, highScore }) {
+
+export default function Game({ gameOverUpdate, totalClicksUpdate, scoreUpdate }) {
+    const ind = useSelector((state) => state.currentNavigationIndex);
+    const userData = useSelector((state) => state.userData.userData);
+    const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
+    const highScore = useSelector((state) => state.games.games[ind].highScore);
+    const games = useSelector((state) => state.games.games);
+
+    const dispatch = useDispatch();
+
     const [counter, updateCounter] = useState(10);
     const [isPlusFirst, updateIsPlusFirst] = useState(1);
     const [timer, updateTimer] = useState(0);
@@ -63,10 +75,83 @@ export default function Game({ gameOverUpdate, totalClicksUpdate, highScoreUpdat
             isRightKey.current = false;
     };
 
+    const updateUserDataOnServer = async (games) => {
+        try {
+            //write code to call user-data api post method with token in header
+            const token = localStorage.getItem('jwtToken');
+            const response = await fetch('/api/user-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ games })
+            });
+
+            if (!response.ok) {
+                console.error('Failed to update user data on server');
+            }
+        } catch (error) {
+            console.error('Error updating user data on server:', error);
+        }
+    }
+
+    const updateHighScoreOnServer = async () => {
+        try {
+            const response = await fetch('/api/games', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                },
+                body: JSON.stringify({
+                    gameId: ind,
+                    highScore: timer,
+                    playerName: userData.username,
+                    playerCountry: userData.country
+                })
+            });
+            if (!response.ok) {
+                console.error('Failed to update high score on server');
+            }
+        } catch (error) {
+            console.error('Error updating high score on server:', error);
+        }
+    };
+
     const gameOverHandler = () => {
         gameOverUpdate(true);
-        if (counter <= 0)
-            highScoreUpdate((prev) => prev === 0 ? timer : Math.min(prev, timer));
+        if (counter <= 0) {
+            if (isLoggedIn) {
+                if (timer < highScore || highScore === 0) {
+                    const updatedGames = games.map((game) => {
+                        if (game._id === ind) {
+                            return { ...game, highScore: timer, playerName: userData.username, playerCountry: userData.country };
+                        }
+                        return game;
+                    });
+                    dispatch(setGames(updatedGames));
+                    updateHighScoreOnServer();
+                }
+            }
+            if (timer < userData.games[ind - 1][0][0] || userData.games[ind - 1][0][0] === 0) {
+
+                const updatedGames = userData.games.map(row => row.map(item => [...item]));
+
+                let x = 0;
+                while (x < 5 && timer < updatedGames[ind - 1][x][0])
+                    x++;
+
+                for (let i = 4; i > x; i--)
+                    updatedGames[ind - 1][i] = updatedGames[ind - 1][i - 1];
+
+                updatedGames[ind - 1][x] = [timer, new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
+                if (isLoggedIn)
+                    updateUserDataOnServer(updatedGames);
+                const newUserData = { ...userData, games: updatedGames };
+                dispatch(updateUserData(newUserData));
+            }
+        }
         scoreUpdate(timer);
     }
 

@@ -6,7 +6,9 @@ import { BsGlobeAmericas } from "react-icons/bs";
 import { IoMdPerson } from "react-icons/io";
 import { MdOutlineSportsScore } from "react-icons/md";
 import { useSelector } from 'react-redux';
-export default function RightAside({ navLinks }) {
+
+export default function RightAside() {
+    const navLinks = useSelector((state) => state.games.games);
     const ind = useSelector((state) => state.currentNavigationIndex);
     if (ind === 0) return;
     return (
@@ -34,17 +36,18 @@ export default function RightAside({ navLinks }) {
                             key={ind}
                             animate={{ x: [5, -5, 4, -4, 3, -3, 2, -2, 1, -1, 0] }}
                             transition={{ duration: 1, delay: 1.2 }}
-                            className={styles.topScoreOnly}>{navLinks[ind].highScore.score}
+                            className={styles.topScoreOnly}>
+                                {navLinks[ind].highScore}{ind===4?'s':""}
                         </motion.div>
                     </div>
                     <div className={styles.containerCountryName}>
-                        <div className={styles.playerName}><IoMdPerson /> {navLinks[ind].highScore.playerName}</div>
-                        <div className={styles.country}><BsGlobeAmericas /> {navLinks[ind].highScore.country}</div>
+                        <div className={styles.playerName}><IoMdPerson /> {navLinks[ind].playerName}</div>
+                        <div className={styles.country}><BsGlobeAmericas /> {navLinks[ind].playerCountry}</div>
                     </div>
                 </div>
 
             </motion.div>
-            <Stats currentGame={navLinks[ind]} />
+            <Stats />
         </div>
 
     );

@@ -11,7 +11,6 @@ export default function ShapesFit() {
     const [allowed,setAllowed]=useState(false);
     const [gameOver, gameOverUpdate] = useState(true);
     const [score, scoreUpdate] = useState(0);
-    const [highScore, highScoreUpdate] = useState(0);
     const router = useRouter();
 
     useEffect(() => {
@@ -50,15 +49,12 @@ export default function ShapesFit() {
             {gameOver ?
                 <Home
                     gameOverUpdate={gameOverUpdate}
-                    highScore={highScore}
                     score={score}
                     scoreUpdate={scoreUpdate}
                 /> :
                 <Game
                     gameOverUpdate={gameOverUpdate}
                     scoreUpdate={scoreUpdate}
-                    highScore={highScore}
-                    highScoreUpdate={highScoreUpdate}
                     gameOver={gameOver}
                 />
             }

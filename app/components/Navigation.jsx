@@ -16,8 +16,8 @@ import { useSelector,useDispatch } from 'react-redux';
 
 
 
-export default function Navigation({navLinks}) {
-
+export default function Navigation() {
+    const navLinks = useSelector((state) => state.games.games);
     const currentSelectionIndex=useSelector((state)=>state.currentNavigationIndex);
     const dispatch= useDispatch();
     const [isNav, isNavUpdate] = useState(true);

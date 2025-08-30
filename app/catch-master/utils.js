@@ -30,8 +30,8 @@ export function startSpawner(gameIntervals) {
         let item_name;
         const isPortrait = window.innerHeight > window.innerWidth;
         const baseSpeed = isPortrait
-            ? (window.innerHeight * 0.001)+Math.random()*3  // slower for tall screens
-            : (window.innerHeight * 0.006)+Math.random()*4; // normal for landscape
+            ? (window.innerHeight * 0.001) + Math.random() * 3  // slower for tall screens
+            : (window.innerHeight * 0.006) + Math.random() * 4; // normal for landscape
         if (rnd === 0)
             item_name = 'stone';
         else if (rnd % 4 === 0)
@@ -50,12 +50,80 @@ export function startSpawner(gameIntervals) {
     }, 500);
 }
 
-export function startTimer(gameIntervals, gameOver, gameOverUpdate) {
+const updateHighScoreOnServer = async (score, ind, userData) => {
+    try {
+        const response = await fetch('/api/games', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+            },
+            body: JSON.stringify({
+                gameId: ind,
+                highScore: score.current,
+                playerName: userData.username,
+                playerCountry: userData.country
+            })
+        });
+        if (!response.ok) {
+            console.error('Failed to update high score on server');
+        }
+    } catch (error) {
+        console.error('Error updating high score on server:', error);
+    }
+};
+
+const updateUserDataOnServer = async (games) => {
+    try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch('/api/user-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ games })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to update user data on server');
+        }
+    } catch (error) {
+        console.error('Error updating user data on server');
+    }
+}
+
+export function startTimer(gameIntervals, gameOver, gameOverUpdate, ind,
+    dispatch, userData, updateUserData, score, isLoggedIn, games, setGames) {
     clearInterval(gameIntervals.timerInterval); // Always clear any existing interval first (to avoid duplicates)
     reset();
     gameIntervals.timerInterval = setInterval(() => {
         timeLeft--;
         if (timeLeft <= 0) {
+            if (isLoggedIn) {
+                if (score.current > games[ind].highScore) {
+                    const updatedGames = games.map((game) => {
+                        if (game._id === ind) {
+                            return { ...game, highScore: score.current, playerName: userData.userData.username, playerCountry: userData.userData.country };
+                        }
+                        return game;
+                    });
+                    dispatch(setGames(updatedGames));
+                    updateHighScoreOnServer(score, ind, userData);
+                }
+            }
+            if (score.current > userData.games[ind - 1][4][0]) {
+                const updatedGames = userData.games.map(row => row.map(item => [...item]));
+                let x = 4;
+                while (x > 0 && score.current > updatedGames[ind - 1][x][0])
+                    updatedGames[ind - 1][x] = updatedGames[ind - 1][--x]
+                if (score.current < updatedGames[ind - 1][x][0]) x++;
+                updatedGames[ind - 1][x] = [score.current, new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
+                if (isLoggedIn)
+                    updateUserDataOnServer(updatedGames);
+                const newUserData = { ...userData, games: updatedGames };
+                dispatch(updateUserData(newUserData));
+            }
             gameOver.current = true;
             gameOverUpdate(true);
             clearInterval(gameIntervals.spawnInterval);
@@ -121,7 +189,7 @@ export function game(ctx, keys, gameBgImage,
 
     drawInfoBox(20, 10, 170, 40, `Time: ${timeLeft}s`);
     drawInfoBox(580, 10, 200, 40, `score: ${score.current}`, combo);
-    drawInfoBox(280, 10, 200, 40, `${highScore.current}`);
+    drawInfoBox(280, 10, 200, 40, `${highScore}`);
 
     if (glowTimer > 0) {
         ctx.save();
@@ -203,7 +271,7 @@ export function game(ctx, keys, gameBgImage,
                 glowTimer = 10;
                 isRed = false;
             }
-            highScore.current = Math.max(highScore.current, score.current);
+
             items.splice(i, 1);
         }
     }
