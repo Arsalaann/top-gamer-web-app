@@ -23,16 +23,19 @@ Follow these steps to run the project locally:
    ```bash
    git clone https://github.com/Arsalaann/top-gamer-web-app.git
 
-2. Go inside folder
-    cd top-gamer-web-app
+2. Go inside folder:
+   ```bash
+   cd top-gamer-web-app
 
-3. Install dependencies
-    npm install
+3. Install dependencies:
+   ```bash
+   npm install
 
-5. Start the development server
+5. Start the development server:
+    ```bash
     npm run dev
 
-4. Visit
+4. Visit:
     http://localhost:3000
     
 
