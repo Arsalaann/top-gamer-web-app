@@ -36,7 +36,7 @@ export default function Stats() {
                     if (res.ok) {
                         return res.json();
                     } else {
-                        throw new Error('Failed to fetch user data');
+                        console.log('Failed to fetch user data');
                     }       
                 }).then(data => {
                     dispatch(setUserData(data));
@@ -62,9 +62,9 @@ export default function Stats() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
             className={styles.statsContainer}>
-            <div className={styles.username}><BsPersonVcard/>{userData.username}</div>
+            <div className={styles.username}><BsPersonVcard/><strong>{userData.username}</strong></div>
             <IoMdLogOut className={styles.logOut} onClick={()=>{localStorage.removeItem('jwtToken');dispatch(setUserData(null))}}/>
-            <div className={styles.yourTopScoreTitle}>You'r Top Score</div>
+            <div className={styles.yourTopScoreTitle}>Your Top Score</div>
             <div className={styles.yourTopScore}>{ind===4?getCorrectHighScore():userData.games[ind-1][0][0]}</div>
             <div className={styles.yourTopTitle}>Your Top 5</div>
             {userData.games[ind-1].map((entry, index) =>

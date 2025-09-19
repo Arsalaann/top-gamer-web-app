@@ -22,8 +22,7 @@
   top: 30%;
   left: 35%;
   cursor: pointer;
-  background: rgb(13, 13, 82);
-  border: 2px solid white;
+  background: rgb(41, 41, 216);
   border-radius: 8px;
   font-size: 1rem;
   text-align: center;
@@ -40,7 +39,6 @@
 
 .signUpButton {
   background: rgb(242, 242, 242);
-  border: 2px solid rgb(0, 0, 130);
   color: rgb(0, 0, 130);
   top: 60%;
 }
@@ -143,7 +141,7 @@
 .username {
   position: absolute;
   display: flex;
-  margin-top: 1%;
+  margin-top: 2%;
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -178,12 +176,13 @@
   font-weight: 900;
   font-size: 1.5rem;
   text-align: center;
-  top: 10%;
+  margin-top: 1%;
+  top: 12%;
 }
 
 .yourTopScore {
   position: absolute;
-  top: 25%;
+  top: 26%;
   width: 100%;
   text-align: center;
   font-size: 1.6rem;
@@ -197,7 +196,7 @@
 
 
 .yourTopTitle {
-  top: 40%;
+  top: 39%;
 }
 
 
