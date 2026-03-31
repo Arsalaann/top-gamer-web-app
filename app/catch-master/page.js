@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { game, startSpawner, startTimer } from './utils';
 import { handleFullscreenChange, handleKeyDown, handleKeyUp } from './events';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateUserData } from '../redux/slices/userDataSlice';
 import { setGames } from '../redux/slices/gamesSlice';
 import Home from './Home';
@@ -26,12 +26,19 @@ const getPointerPos = (evt, canvas) => {
 
 export default function CatchMaster() {
     const ind = useSelector((state) => state.currentNavigationIndex);
-    const highScore= useSelector((state) => state.userData.userData.games[ind-1][0][0]);
-    const userData=useSelector(state=>state.userData.userData);
-    const isLoggedIn=useSelector(state=>state.userData.isLoggedIn);
-    const games=useSelector(state=>state.games.games);
+    const highScore = useSelector((state) => {
+        const ind = state.currentNavigationIndex;
+        const userData = state.userData.userData;
 
-    const dispatch=useDispatch();
+        if (!ind || !userData?.games?.[ind - 1]) return 0;
+
+        return userData.games[ind - 1][0][0];
+    });
+    const userData = useSelector(state => state.userData.userData);
+    const isLoggedIn = useSelector(state => state.userData.isLoggedIn);
+    const games = useSelector(state => state.games.games);
+
+    const dispatch = useDispatch();
 
     const [allowed, setAllowed] = useState(false);
     const router = useRouter();
@@ -161,7 +168,7 @@ export default function CatchMaster() {
 
             const startGame = () => {
                 startSpawner(gameIntervals);
-                startTimer(gameIntervals, gameOverRef, gameOverUpdate,ind,dispatch,userData,updateUserData,scoreRef,isLoggedIn,games,setGames);
+                startTimer(gameIntervals, gameOverRef, gameOverUpdate, ind, dispatch, userData, updateUserData, scoreRef, isLoggedIn, games, setGames);
                 requestAnimationFrame(gameLoop);
             }
 
