@@ -49,7 +49,7 @@ export default function Stats() {
             getUserData();
         }else
             setIsChecked(true);
-    }, [userData,token]);
+    }, [token]);
     
     if(ind===0)
         return;
